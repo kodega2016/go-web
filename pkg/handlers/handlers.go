@@ -18,3 +18,7 @@ func About(w http.ResponseWriter, r *http.Request) {
 		StringMap: stringMap,
 	})
 }
+
+func SearchAvailability(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "search-availability.page.tmpl", &models.TemplateData{})
+}

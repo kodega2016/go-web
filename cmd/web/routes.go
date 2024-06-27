@@ -17,5 +17,6 @@ func Routes() http.Handler {
 
 	router.Get("/about", handlers.About)
 	router.Get("/", handlers.Home)
+	router.Get("/search", handlers.SearchAvailability)
 	return router
 }
