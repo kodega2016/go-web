@@ -2,6 +2,7 @@ package render
 
 import (
 	"booking_app/pkg/config"
+	"booking_app/pkg/models"
 	"bytes"
 	"fmt"
 	"log"
@@ -17,8 +18,13 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
-func RenderTemplate(w http.ResponseWriter, tmpl string) error {
-	tc := map[string]*template.Template{}
+func AddDefaultValue(td *models.TemplateData) *models.TemplateData {
+	td.Flash = "this is just a demo message"
+	return td
+}
+
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) error {
+	var tc map[string]*template.Template
 
 	if app.UseCache {
 		tc = app.TemplateCache
@@ -33,7 +39,8 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) error {
 	}
 	// render the template with the data
 	buff := new(bytes.Buffer)
-	t.Execute(w, nil)
+	td = AddDefaultValue(td)
+	t.Execute(w, td)
 
 	_, err := buff.WriteTo(w)
 	if err != nil {

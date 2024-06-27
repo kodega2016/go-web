@@ -2,5 +2,7 @@
 {{define "content"}}
 <div class="container">
   <h1>About us page for booking app</h1>
+  <p>Welcome {{index .StringMap "name"}}</p>
+  <p>{{.Flash}}
 </div>
 {{end}}
