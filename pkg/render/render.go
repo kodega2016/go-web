@@ -1,6 +1,7 @@
 package render
 
 import (
+	"booking_app/pkg/config"
 	"bytes"
 	"fmt"
 	"log"
@@ -9,12 +10,22 @@ import (
 	"text/template"
 )
 
+var app *config.AppConfig
+
+// NewTemplates set the app config to the render package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
+
 func RenderTemplate(w http.ResponseWriter, tmpl string) error {
-	// create template cache
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal("unable to create template cache:", err)
+	tc := map[string]*template.Template{}
+
+	if app.UseCache {
+		tc = app.TemplateCache
+	} else {
+		tc, _ = CreateTemplateCache()
 	}
+
 	// get the template from the cache
 	t, ok := tc[tmpl]
 	if !ok {
@@ -24,7 +35,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) error {
 	buff := new(bytes.Buffer)
 	t.Execute(w, nil)
 
-	_, err = buff.WriteTo(w)
+	_, err := buff.WriteTo(w)
 	if err != nil {
 		fmt.Println("error writing to the template:", err)
 		return err
