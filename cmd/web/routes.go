@@ -2,12 +2,19 @@ package main
 
 import (
 	"booking_app/pkg/handlers"
-	"github.com/go-chi/chi/v5"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func Routes() http.Handler {
 	router := chi.NewRouter()
+
+	// use middleware
+	// router.Use(WriteToConsole)
+	router.Use(middleware.Logger)
+
 	router.Get("/about", handlers.About)
 	router.Get("/", handlers.Home)
 	return router
