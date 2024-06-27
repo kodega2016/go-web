@@ -1,14 +1,14 @@
 package handlers
 
 import (
-	"fmt"
+	"booking_app/pkg/render"
 	"net/http"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "home page")
+	render.RenderTemplate(w, "home.page.tmpl")
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "about page")
+	render.RenderTemplate(w, "about.page.tmpl")
 }
