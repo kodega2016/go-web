@@ -45,3 +45,7 @@ func (re Repository) About(w http.ResponseWriter, r *http.Request) {
 func (re Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "search-availability.page.tmpl", &models.TemplateData{})
 }
+
+func (re Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "contact.page.tmpl", &models.TemplateData{})
+}

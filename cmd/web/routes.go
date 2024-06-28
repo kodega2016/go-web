@@ -24,6 +24,7 @@ func Routes(app *config.AppConfig) http.Handler {
 
 	router.Get("/", handlers.Repo.Home)
 	router.Get("/about", handlers.Repo.About)
-	router.Get("/search", handlers.Repo.SearchAvailability)
+	router.Get("/search-availability", handlers.Repo.SearchAvailability)
+	router.Get("/contact", handlers.Repo.Contact)
 	return router
 }
