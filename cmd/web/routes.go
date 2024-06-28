@@ -1,6 +1,7 @@
 package main
 
 import (
+	"booking_app/pkg/config"
 	"booking_app/pkg/handlers"
 	"net/http"
 
@@ -8,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-func Routes() http.Handler {
+func Routes(app *config.AppConfig) http.Handler {
 	router := chi.NewRouter()
 
 	// use middleware

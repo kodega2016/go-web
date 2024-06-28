@@ -30,7 +30,7 @@ func main() {
 	// server configuration
 	srv := http.Server{
 		Addr:    portNumber,
-		Handler: Routes(),
+		Handler: Routes(&app),
 	}
 
 	c := color.New(color.FgGreen).Add(color.Underline)
