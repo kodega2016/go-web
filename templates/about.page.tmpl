@@ -4,5 +4,12 @@
   <h1>About us page for booking app</h1>
   <p>Welcome {{index .StringMap "name"}}</p>
   <p>{{.Flash}}
+  <p>
+  {{if ne (index .StringMap "ip_address") ""}}
+    Your ip address is {{index .StringMap "ip_address"}}
+  {{else}}
+    Ip address is not found. Try to visit <a href="/">Home Page</a> to get the ip address.
+  {{end}}
+  </p>
 </div>
 {{end}}

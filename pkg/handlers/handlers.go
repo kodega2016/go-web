@@ -11,13 +11,13 @@ var Repo *Repository
 
 // Repository holds the app config
 type Repository struct {
-	app *config.AppConfig
+	App *config.AppConfig
 }
 
 // NewRepository create a new instance of the repository
 func NewRepository(a *config.AppConfig) *Repository {
 	return &Repository{
-		app: a,
+		App: a,
 	}
 }
 
@@ -27,12 +27,15 @@ func NewHandler(r *Repository) {
 }
 
 func (re Repository) Home(w http.ResponseWriter, r *http.Request) {
+	Repo.App.Session.Put(r.Context(), "ip_address", r.RemoteAddr)
 	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 func (re Repository) About(w http.ResponseWriter, r *http.Request) {
+	ip_address := re.App.Session.GetString(r.Context(), "ip_address")
 	stringMap := map[string]string{
-		"name": "Khadga Bahadur Shrestha",
+		"name":       "Khadga Bahadur Shrestha",
+		"ip_address": ip_address,
 	}
 	render.RenderTemplate(w, "about.page.tmpl", &models.TemplateData{
 		StringMap: stringMap,
