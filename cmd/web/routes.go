@@ -16,6 +16,7 @@ func Routes(app *config.AppConfig) http.Handler {
 	// router.Use(WriteToConsole)
 	router.Use(middleware.Logger)
 	router.Use(SessionLoad)
+	router.Use(NoSurf)
 
 	router.Get("/", handlers.Repo.Home)
 	router.Get("/about", handlers.Repo.About)
