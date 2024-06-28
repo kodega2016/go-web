@@ -51,5 +51,8 @@ func main() {
 
 	c := color.New(color.FgGreen).Add(color.Underline)
 	c.Printf("application server is running on %s.\n", portNumber)
-	srv.ListenAndServe()
+	err = srv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

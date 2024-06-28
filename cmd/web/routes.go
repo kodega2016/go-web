@@ -18,6 +18,10 @@ func Routes(app *config.AppConfig) http.Handler {
 	router.Use(SessionLoad)
 	router.Use(NoSurf)
 
+	// file server
+	fs := http.FileServer(http.Dir("./static"))
+	router.Handle("/static/*", http.StripPrefix("/static", fs))
+
 	router.Get("/", handlers.Repo.Home)
 	router.Get("/about", handlers.Repo.About)
 	router.Get("/search", handlers.Repo.SearchAvailability)
