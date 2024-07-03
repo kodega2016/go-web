@@ -4,9 +4,16 @@ import (
 	"booking_app/pkg/config"
 	"booking_app/pkg/models"
 	"booking_app/pkg/render"
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
+
+type jsonResponse struct {
+	OK      bool   `json:"ok"`
+	Message string `json:"message"`
+}
 
 var Repo *Repository
 
@@ -48,7 +55,22 @@ func (re Repository) SearchAvailability(w http.ResponseWriter, r *http.Request) 
 }
 
 func (re Repository) PostSearchAvailability(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("processing the form")
+	start_date := r.Form.Get("start")
+	end_date := r.Form.Get("end")
+	fmt.Fprintln(w, start_date, end_date)
+}
+
+func (re Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
+	res := jsonResponse{
+		OK:      true,
+		Message: "json data is stored successfully.",
+	}
+	out, err := json.MarshalIndent(res, "", " ")
+	if err != nil {
+		log.Println(err)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(out)
 }
 
 func (re Repository) Contact(w http.ResponseWriter, r *http.Request) {
